@@ -1,0 +1,259 @@
+FunIndex,Description,SetValue,CurrentValue,DefaultValue,MinValue,MaxValue,Unit,ModifiedMethod,EffectiveMethod,DataType,AppliedMode
+H00_00,Motor code,---,601100,FactoryReg,0,2147483647,-,ReadOnly,-,UInt32,ALL
+H00_02,Brake select,---,0,FactoryReg,0,2,-,ServoDisable,PowerOnAgain,UInt32,ALL
+H00_08,Encoder zero setting status,---,0,-,0,1,-,ReadOnly,-,UInt16,ALL
+H00_09,Motor rated voltage,---,48,FactoryReg,0,380,V,ServoDisable,PowerOnAgain,UInt16,ALL
+H00_11,Motor rated current,---,1100,FactoryReg,0,65535,10mA,ServoDisable,PowerOnAgain,UInt16,ALL
+H00_12,Motor rated torque,---,1270,FactoryReg,0,65535,0.001Nm,ServoDisable,PowerOnAgain,UInt16,ALL
+H00_14,Motor rated speed,---,3000,FactoryReg,0,6000,rpm,ServoDisable,PowerOnAgain,UInt16,ALL
+H00_15,Motor max speed,---,3600,FactoryReg,0,6000,rpm,ServoDisable,PowerOnAgain,UInt16,ALL
+H00_16,Motor rotational inertia,---,580,FactoryReg,1,65535,0.001kg﹞cm昌,ServoDisable,PowerOnAgain,UInt16,ALL
+H00_17,Motor polar pairs,---,5,FactoryReg,2,360,pole-pairs,ServoDisable,PowerOnAgain,UInt16,ALL
+H00_18,Motor stator resistor,---,135,FactoryReg,1,65535,m目,ServoDisable,PowerOnAgain,UInt16,ALL
+H00_19,Motor stator inductance Lq,---,28,FactoryReg,1,65535,0.01mH,ServoDisable,PowerOnAgain,UInt16,ALL
+H00_20,Motor stator inductance Ld,---,28,FactoryReg,1,65535,0.01mH,ServoDisable,PowerOnAgain,UInt16,ALL
+H00_21,Motor counter emf ,---,700,FactoryReg,1,65535,0.01V/1000rpm,ServoDisable,PowerOnAgain,UInt16,ALL
+H00_22,Drive a_phase current autocal offset,---,0,FactoryReg,-3300,3300,mv,ReadOnly,-,Int16,ALL
+H00_23,Drive c_phase current autocal offset,---,16,FactoryReg,-3300,3300,mv,ReadOnly,-,Int16,ALL
+H00_28,Encoder null offset,---,17636,FactoryReg,-131072,131072,P/r,ServoDisable,PowerOnAgain,Int32,ALL
+H00_30,Encoder type select,---,1,FactoryReg,0,2147483647,-,ServoDisable,PowerOnAgain,UInt32,ALL
+H00_31,Encoder resolution,---,17,FactoryReg,0,1073741824,P/r,ServoDisable,PowerOnAgain,UInt32,ALL
+H00_35,damping resistance,---,0,FactoryReg,0,65535,m目,ServoDisable,PowerOnAgain,UInt16,ALL
+H00_43,Motor max current,---,2200,FactoryReg,0,65535,10mA,ServoDisable,PowerOnAgain,UInt16,ALL
+H01_00,Mcu software version,---,257,-,0,65535,-,ReadOnly,-,UInt16,ALL
+H01_01,Current sampling filtering time,---,30,FactoryReg,0,500,us,ServoDisable,PowerOnAgain,UInt16,ALL
+H01_02,Drive code,---,4812,FactoryReg,0,65535,-,ServoDisable,Immediate,UInt16,ALL
+H01_03,Drive max current,---,2200,FactoryReg,10,30000,10mA,ServoDisable,Immediate,UInt16,ALL
+H01_04,Drive current sampling retardation time,---,50,FactoryReg,1,10000,0.01ms,AnyModified,Immediate,UInt16,ALL
+H01_05,Drive current sampling resistor,---,10,FactoryReg,1,1000,m目,ServoDisable,PowerOnAgain,UInt16,ALL
+H01_06,Drive current sampling amplifier input res,---,1000,FactoryReg,500,65535,目,ServoDisable,PowerOnAgain,UInt16,ALL
+H01_07,Drive current sampling amplifier feedback res,---,4990,FactoryReg,500,65535,目,ServoDisable,PowerOnAgain,UInt16,ALL
+H01_08,Drive overtemperature alarm threshold,---,90,FactoryReg,40,100,﹎,ServoDisable,Immediate,UInt16,ALL
+H01_09,Drive bus voltage attenuation coefficient,---,3100,FactoryReg,0,65535,-,ServoDisable,PowerOnAgain,UInt16,ALL
+H02_00,Control mode selection,,1,1,0,8,-,ServoDisable,Immediate,UInt16,ALL
+H02_02,Direction of rotation,,0,0,0,1,-,ServoDisable,PowerOnAgain,UInt16,ALL
+H02_05,Stop mode at S-OFF,,0,0,0,2,-,ServoDisable,Immediate,UInt16,ALL
+H02_09,Delay from brake opened upon S-ON to command received,,250,250,0,500,ms,AnyModified,Immediate,UInt16,ALL
+H02_10,Delay from brake command to S-OFF,,150,150,1,1000,ms,AnyModified,Immediate,UInt16,ALL
+H02_19,Brake resistance start working voltage value,,600,FactoryReg,150,10000,0.1V,ServoDisable,PowerOnAgain,UInt16,ALL
+H02_20,Brake resistance stop working voltage value,,580,FactoryReg,150,10000,0.1V,ServoDisable,Immediate,UInt16,ALL
+H02_21,Brake resistance minimum allowable resistance,---,20,FactoryReg,0,65535,目,ReadOnly,-,UInt16,ALL
+H02_22,Built-in brake resistance power,---,0,FactoryReg,0,65535,W,ReadOnly,-,UInt16,ALL
+H02_23,Built-in brake resistance value,---,65535,FactoryReg,0,65535,目,ReadOnly,-,UInt16,ALL
+H02_24,Heat dissipation coefficient of brake resistance,,5,FactoryReg,5,100,%,ServoDisable,Immediate,UInt16,ALL
+H02_25,Brake resistance setting,,3,FactoryReg,0,3,-,ServoDisable,Immediate,UInt16,ALL
+H02_26,External brake resistance power,,1,1,1,65535,W,ServoDisable,Immediate,UInt16,ALL
+H02_27,External brake resistance value,,50,50,1,1000,目,ServoDisable,Immediate,UInt16,ALL
+H02_30,Password,---,0,0,0,65535,-,ReadOnly,Immediate,UInt16,ALL
+H02_31,Internal reset,,0,0,0,5,-,ServoDisable,Immediate,UInt16,ALL
+H03_02,DI1 function selection,,1,1,0,41,-,AnyModified,Immediate,UInt16,ALL
+H03_03,DI1 logic selection,,1,0,0,1,-,AnyModified,Immediate,UInt16,ALL
+H03_04,DI2 function selection,,28,2,0,41,-,AnyModified,Immediate,UInt16,ALL
+H03_05,DI2 logic selection,,1,0,0,1,-,AnyModified,Immediate,UInt16,ALL
+H03_06,DI3 function selection,,34,34,0,41,-,AnyModified,Immediate,UInt16,ALL
+H03_07,DI3 logic selection,,0,0,0,1,-,AnyModified,Immediate,UInt16,ALL
+H03_08,DI4 function selection,,18,18,0,41,-,AnyModified,Immediate,UInt16,ALL
+H03_09,DI4 logic selection,,0,0,0,1,-,AnyModified,Immediate,UInt16,ALL
+H03_10,DI5 function selection,,19,19,0,41,-,AnyModified,Immediate,UInt16,ALL
+H03_11,DI5 logic selection,,0,0,0,1,-,AnyModified,Immediate,UInt16,ALL
+H03_16,DI8 function selection,,0,0,0,41,-,AnyModified,Immediate,UInt16,ALL
+H03_17,DI8 logic selection,,0,0,0,1,-,AnyModified,Immediate,UInt16,ALL
+H03_18,DI9 function selection,,0,0,0,41,-,AnyModified,Immediate,UInt16,ALL
+H03_19,DI9 logic selection,,0,0,0,1,-,AnyModified,Immediate,UInt16,ALL
+H03_50,AI1 OR Pwm offset,,0,0,-5000,5000,mv/pwm%,AnyModified,Immediate,Int16,S/T
+H03_51,AI1 OR Pwm dead zone,,2000,2000,0,65535,0.01ms,AnyModified,Immediate,UInt16,S/T
+H03_53,AI1 dead Filter time,,100,100,0,10000,0.1mv,AnyModified,Immediate,UInt16,S/T
+H03_54,AI1 zero offset,,0,0,-5000,5000,0.1mv,AnyModified,Immediate,Int16,S/T
+H03_80,AI1(10V) OR Pwm(100%)  out speed,,3000,3000,0,6000,rpm,ServoDisable,Immediate,UInt16,S/T
+H03_81,AI1(10V)  out torque,,100,100,100,800,0.01袺,ServoDisable,Immediate,UInt16,S/T
+H04_00,DO1 function selection,,1,1,0,24,-,AnyModified,Immediate,UInt16,ALL
+H04_01,DO1 logic level selection,,0,0,0,1,-,AnyModified,Immediate,UInt16,ALL
+H04_02,DO2 function selection,,11,11,0,24,-,AnyModified,Immediate,UInt16,ALL
+H04_03,DO2 logic level selection,,0,0,0,1,-,AnyModified,Immediate,UInt16,ALL
+H04_04,DO3 function selection,,5,5,0,24,-,AnyModified,Immediate,UInt16,ALL
+H04_05,DO3 logic level selection,,0,0,0,1,-,AnyModified,Immediate,UInt16,ALL
+H04_06,DO4 function selection,,18,18,0,24,-,AnyModified,Immediate,UInt16,ALL
+H04_07,DO4 logic level selection,,0,0,0,1,-,AnyModified,Immediate,UInt16,ALL
+H04_08,DO5 function selection,,19,19,0,24,-,AnyModified,Immediate,UInt16,ALL
+H04_09,DO5 logic level selection,,0,0,0,1,-,AnyModified,Immediate,UInt16,ALL
+H05_00,Position reference source,,2,0,0,2,-,ServoDisable,Immediate,UInt16,P
+H05_04,First-order low-pass filter time,,500,FactoryReg,0,65535,0.1ms,ServoDisable,Immediate,UInt16,P
+H05_07,Electronic gear ratio numerator 1,,131072,131072,0,1073741824,-,ServoDisable,Immediate,UInt32,P
+H05_09,Electronic gear ratio denominator 1,,1000,1000,0,1073741824,-,ServoDisable,Immediate,UInt32,P
+H05_15,Pulse string form,,0,0,0,3,-,ServoDisable,PowerOnAgain,UInt16,P
+H05_17,Encoder frequency-division output,,1,1,1,50,pulse,AnyModified,Immediate,UInt16,P
+H05_21,Positioning completed threshold,,92,92,0,65535,enc_pulse,AnyModified,Immediate,UInt16,P
+H05_30,Homing selection,,0,0,0,8,-,AnyModified,Immediate,UInt16,P
+H05_31,Homing mode,,0,0,0,16,-,ServoDisable,Immediate,UInt16,P
+H05_32,Speed in high-speed searching for the home switch signal,,100,100,0,3000,rpm,AnyModified,Immediate,UInt16,P
+H05_33,Speed in low-speed searching for the home switch signal,,10,10,0,100,rpm,AnyModified,Immediate,UInt16,P
+H05_34,Acceleration/Deceleration time limit in searching for the home,,200,200,0,200,ms,ServoDisable,Immediate,UInt16,P
+H05_35,Homing time limit,,60000,65535,0,65535,ms,ServoDisable,Immediate,UInt16,P
+H05_36,Mechanical home offset,,0,0,-1073741824,1073741824,cmd_pulse,ServoDisable,Immediate,Int32,P
+H05_58,Torque threshold in homing upon hit-and-stop,,500,500,0,3000,0.10%,AnyModified,Immediate,UInt16,P
+H06_00,Source of speed reference A,,0,0,0,2,-,ServoDisable,Immediate,UInt16,S
+H06_01,Source of speed reference B,,5,5,0,5,-,ServoDisable,Immediate,UInt16,S
+H06_02,Speed reference source,,0,0,0,4,-,ServoDisable,Immediate,UInt16,S
+H06_03,Speed reference set through keypad,,0,0,-6000,6000,rpm,AnyModified,Immediate,Int16,S
+H06_04,Jog speed setpoint,,100,100,0,6000,rpm,AnyModified,Immediate,UInt16,S
+H06_05,Acceleration ramp time of speed reference,,500,0,0,65535,ms,AnyModified,Immediate,UInt16,S
+H06_06,Deceleration ramp time of speed reference,,500,0,0,65535,ms,AnyModified,Immediate,UInt16,S
+H06_18,Threshold of speed reached signal,,1000,1000,10,6000,rpm,AnyModified,Immediate,UInt16,S
+H07_00,Source of torque reference A,,0,0,0,1,-,ServoDisable,Immediate,UInt16,T
+H07_01,Source of torque reference B,,1,1,0,1,-,ServoDisable,Immediate,UInt16,T
+H07_02,Torque reference source,,0,0,0,4,-,ServoDisable,Immediate,UInt16,T
+H07_03,Torque reference set through keypad,,0,0,-3000,3000,0.10%,AnyModified,Immediate,Int16,T
+H07_05,Torque reference filtering time 1,,79,FactoryReg,0,3000,ms,AnyModified,Immediate,UInt16,P/S/T
+H07_09,Forward internal torque limit,,3000,3000,0,4000,0.10%,AnyModified,Immediate,UInt16,P/S/T
+H07_10,Reverse internal torque limit,,3000,3000,0,4000,0.10%,AnyModified,Immediate,UInt16,P/S/T
+H07_19,Forward internal speed limit/1st speed limit in torque control,,1500,1500,0,6000,rpm,AnyModified,Immediate,UInt16,T
+H07_20,Reverse internal speed limit/2nd speed limit in torque control,,1500,1500,0,6000,rpm,AnyModified,Immediate,UInt16,T
+H07_21,Reference value for torque arrival,,0,0,0,3000,0.10%,AnyModified,Immediate,UInt16,P/S/T
+H07_22,Threshold for valid torque arrival,,200,200,0,3000,0.10%,AnyModified,Immediate,UInt16,P/S/T
+H07_23,Threshold for invalid torque arrival,,100,100,0,3000,0.10%,AnyModified,Immediate,UInt16,P/S/T
+H08_00,Speed loop gain,,100,FactoryReg,1,20000,0.1Hz,AnyModified,Immediate,UInt16,P/S
+H08_01,Speed loop integral time constant,,1832,FactoryReg,15,51200,0.01ms,AnyModified,Immediate,UInt16,P/S
+H08_02,Position loop gain,,80,FactoryReg,0,20000,0.1Hz,AnyModified,Immediate,UInt16,P
+H08_15,Average value of load moment of inertia ratio,,0,0,0,12000,0.01袺,AnyModified,Immediate,UInt16,P/S/T
+H09_00,Gain auto-tuning mode,,0,0,0,1,-,AnyModified,Immediate,UInt16,P/S/T
+H09_01,Stiffness level of 1st group of gain,,10,10,0,41,-,AnyModified,Immediate,UInt16,P/S/T
+H0A_04,Motor overload protection gain,,100,100,10,3000,%,ServoDisable,Immediate,UInt16,ALL
+H0A_10,Excessive position deviation threshold,,1048576,1048576,1,1073741824,enc_pulse,AnyModified,Immediate,UInt32,P
+H0A_26,Motor overload warning/fault selection,,0,0,0,1,-,ServoDisable,Immediate,UInt16,ALL
+H0A_36,Encoder multi-turn Fault shield selection,,0,0,0,3,-,AnyModified,Immediate,UInt16,ALL
+H0A_44,Single-phase bus overvoltage generated value,---,72,FactoryReg,15,1000,V,AnyModified,Immediate,UInt16,ALL
+H0A_48,Single-phase bus voltage undervoltage value,---,15,FactoryReg,15,1000,V,AnyModified,Immediate,UInt16,ALL
+H0A_50,Power-on initialization delay time,---,2000,2000,500,5000,ms,AnyModified,Immediate,UInt16,ALL
+H0A_51,Undervoltage continues to generate alarm time,---,20,10,0,500,0.1ms,AnyModified,Immediate,UInt16,ALL
+H0A_52,PULSE/DIR Signal hardware filtering,,0,0,0,7,-,AnyModified,Immediate,UInt16,P
+H0B_00,Motor speed actual value,---,0,0,-65535,65535,rpm,ReadOnly,-,Int16,ALL
+H0B_02,Internal torque reference (relative to the rated torque),---,-17,0,-3000,3000,0.10%,ReadOnly,-,Int16,ALL
+H0B_03,Monitored DI status,---,3,0,0,99999,-,ReadOnly,-,UInt32,ALL
+H0B_05,Monitored DO status,---,5,0,0,0,-,ReadOnly,-,UInt16,ALL
+H0B_07,Absolute position counter (reference unit),---,1000,0,-2147483648,2147483647,cmd_pulse,ReadOnly,-,Int32,ALL
+H0B_11,Speed corresponding to the input position reference,---,0,0,-65535,65535,rpm,ReadOnly,-,Int16,P
+H0B_12,Average load rate,---,17,0,0,5000,0.10%,ReadOnly,-,UInt16,ALL
+H0B_13,Input reference pulse counter (32-bit decimal),---,0,0,-2147483648,2147483647,cmd_pulse,ReadOnly,-,Int32,P
+H0B_15,Position deviation counter (encoder unit) (active only in position control),---,0,0,-1073741824,1073741824,enc_pulse,ReadOnly,-,Int32,P
+H0B_21,CurrentT AI1 voltage OR PWM duty cycle,---,-22,0,-3000,3000,0.01V/pwm%,ReadOnly,-,Int16,P/S/T
+H0B_24,RMS value of phase current,---,18,0,-10000,10000,0.01A,ReadOnly,-,Int16,P/S/T
+H0B_26,Bus voltage,---,476,0,0,9999,0.1V,ReadOnly,-,UInt16,P/S/T
+H0B_27,Servo drive temperature,---,31,0,-100,100,﹎,ReadOnly,-,Int16,P/S/T
+H0B_33,Fault log display,,0,0,0,9,last_N_fault,AnyModified,Immediate,UInt16,P/S/T
+H0B_34,Fault code,---,0,0,0,4095,-,ReadOnly,-,UInt16,P/S/T
+H0B_70,Number of absolute encoder revolutions,---,1,0,-32768,32767,r,ReadOnly,-,Int16,ALL
+H0B_71,Position of the absolute encoder within one turn,---,71258,0,0,2147483647,enc_pulse,ReadOnly,-,UInt32,ALL
+H0B_77,Absolute position (low 32 bits) of the absolute encoder,---,202330,0,-2147483648,2147483647,enc_pulse,ReadOnly,-,Int32,ALL
+H0B_79,Absolute position (high 32 bits) of the absolute encoder,---,0,0,-2147483648,2147483647,enc_pulse,ReadOnly,-,Int32,ALL
+H0C_00,Servo axis address,,1,1,1,247,-,AnyModified,PowerOnAgain,UInt16,ALL
+H0C_02,Baud rate,,5,5,0,6,-,AnyModified,PowerOnAgain,UInt16,ALL
+H0C_03,Modbus data format,,3,0,0,3,-,AnyModified,PowerOnAgain,UInt16,ALL
+H0C_08,CAN communication rate,,5,5,0,7,-,AnyModified,Immediate,UInt16,ALL
+H0C_13,Whether to save parameter value updates to eeprom,,0,0,0,1,-,AnyModified,Immediate,UInt16,ALL
+H0C_26,32-bit sequence selection,,1,1,0,1,-,AnyModified,Immediate,UInt16,ALL
+H0D_00,Software reset,,0,0,0,1,-,ServoDisable,Immediate,UInt16,ALL
+H0D_01,Fault reset,,0,0,0,1,-,ServoDisable,Immediate,UInt16,ALL
+H0D_05,Emergency stop,,0,0,0,1,-,AnyModified,Immediate,UInt16,ALL
+H0D_20,Absolute encoder reset select,,0,0,0,2,-,ServoDisable,Immediate,UInt16,ALL
+H11_00,Multi-position operation mode,,0,0,0,5,-,ServoDisable,Immediate,UInt16,P
+H11_01,Number of displacement references in multi-position mode,,2,1,1,4,-,ServoDisable,Immediate,UInt16,P
+H11_02,Start position upon restart after pause,,0,0,0,1,-,ServoDisable,Immediate,UInt16,P
+H11_04,Displacement reference type,,1,0,0,1,-,ServoDisable,Immediate,UInt16,P
+H11_12,1st displacement,,5000,1000,-10000000,10000000,cmd_pulse,AnyModified,Immediate,Int32,P
+H11_14,Constant operating speed in the 1st displacement,,100,200,1,6000,rpm,AnyModified,Immediate,UInt16,P
+H11_15,Acceleration/Deceleration time in the 1st displacement,,100,10,1,65535,ms(s),AnyModified,Immediate,UInt16,P
+H11_16,Waiting time after the 1st displacement,,0,10,0,10000,ms(s),AnyModified,Immediate,UInt16,P
+H11_17,2nd displacement,,1000,1000,-10000000,10000000,cmd_pulse,AnyModified,Immediate,Int32,P
+H11_19,Constant operating speed in the 2nd displacement,,200,200,1,6000,rpm,AnyModified,Immediate,UInt16,P
+H11_20,Acceleration/Deceleration time in the 2nd displacement,,10,10,1,65535,ms(s),AnyModified,Immediate,UInt16,P
+H11_21,Waiting time after the 2nd displacement,,10,10,0,10000,ms(s),AnyModified,Immediate,UInt16,P
+H11_22,3rd displacement,,1000,1000,-10000000,10000000,cmd_pulse,AnyModified,Immediate,Int32,P
+H11_24,Constant operating speed in the 3rd displacement,,200,200,1,6000,rpm,AnyModified,Immediate,UInt16,P
+H11_25,Acceleration/Deceleration time in the 3rd displacement,,10,10,1,65535,ms(s),AnyModified,Immediate,UInt16,P
+H11_26,Waiting time after the 3rd displacement,,10,10,0,10000,ms(s),AnyModified,Immediate,UInt16,P
+H11_27,4th displacement,,1000,1000,-10000000,10000000,cmd_pulse,AnyModified,Immediate,Int32,P
+H11_29,Constant operating speed in the 4th displacement,,200,200,1,6000,rpm,AnyModified,Immediate,UInt16,P
+H11_30,Acceleration/Deceleration time in the 4th displacement,,10,10,1,65535,ms(s),AnyModified,Immediate,UInt16,P
+H11_31,Waiting time after the 4th displacement,,10,10,0,10000,ms(s),AnyModified,Immediate,UInt16,P
+H12_00,Multi-speed reference operation mode,,1,1,0,2,-,ServoDisable,Immediate,UInt16,S
+H12_01,Number of speed references in multi-speed mode,,4,4,1,4,-,ServoDisable,Immediate,UInt16,S
+H12_03,Acceleration time 1,,10,10,0,65535,ms,AnyModified,Immediate,UInt16,S
+H12_04,Deceleration time 1,,10,10,0,65535,ms,AnyModified,Immediate,UInt16,S
+H12_20,1st speed reference,,0,0,-12000,12000,rpm,AnyModified,Immediate,Int16,S
+H12_21,Operating time of the 1st speed reference,,50,50,0,65535,0.1s,AnyModified,Immediate,UInt16,S
+H12_23,2nd speed reference,,100,100,-6000,6000,rpm,AnyModified,Immediate,Int16,S
+H12_24,Operating time of the 2nd speed reference,,50,50,0,65535,0.1s,AnyModified,Immediate,UInt16,S
+H12_26,3rd speed reference,,300,300,-6000,6000,rpm,AnyModified,Immediate,Int16,S
+H12_27,Operating time of the 3rd speed reference,,50,50,0,65535,0.1s,AnyModified,Immediate,UInt16,S
+H12_29,4th speed reference,,500,500,-6000,6000,rpm,AnyModified,Immediate,Int16,S
+H12_30,Operating time of the 4th speed reference,,50,50,0,65535,0.1s,AnyModified,Immediate,UInt16,S
+H17_00,VDI1 function selection,,0,0,0,41,-,AnyModified,Immediate,UInt16,ALL
+H17_01,VDI1 logic selection,,0,0,0,1,-,AnyModified,Immediate,UInt16,ALL
+H17_02,VDI2 function selection,,0,0,0,41,-,AnyModified,Immediate,UInt16,ALL
+H17_03,VDI2 logic selection,,0,0,0,1,-,AnyModified,Immediate,UInt16,ALL
+H17_04,VDI3 function selection,,0,0,0,41,-,AnyModified,Immediate,UInt16,ALL
+H17_05,VDI3 logic selection,,0,0,0,1,-,AnyModified,Immediate,UInt16,ALL
+H17_06,VDO1 function selection,,0,0,0,24,-,AnyModified,Immediate,UInt16,ALL
+H17_07,VDO1 logic level selection,,0,0,0,1,-,AnyModified,Immediate,UInt16,ALL
+H17_08,VDO2 function selection,,0,0,0,24,-,AnyModified,Immediate,UInt16,ALL
+H17_09,VDO2 logic level selection,,0,0,0,1,-,AnyModified,Immediate,UInt16,ALL
+H17_10,VDO3 function selection,,0,0,0,24,-,AnyModified,Immediate,UInt16,ALL
+H17_11,VDO3 logic level selection,,0,0,0,1,-,AnyModified,Immediate,UInt16,ALL
+H17_12,VDO Virtual Port status,---,0,0,0,65535,-,ReadOnly,-,UInt16,ALL
+H17_13,cia301-1005h-SYNC COB ID,---,128,-,0,4294967295,-,ReadOnly,-,UInt32,cia301
+H17_14,cia301-1006h-Cycle Period,---,0,-,0,4294967295,-,ReadOnly,-,UInt32,cia301
+H17_15,cia301-100Ch-Guard Time,---,0,-,0,65535,-,ReadOnly,-,UInt16,cia301
+H17_16,cia301-100Dh-Life Time Factor,---,0,-,0,65535,-,ReadOnly,-,UInt16,cia301
+H17_17,cia301-1014h-Emergency COB ID,---,128,-,0,4294967295,-,ReadOnly,-,Int32,cia301
+H17_18,cia301-1016h-1-Consumer Heartbeat Tim,---,0,-,0,4294967295,-,ReadOnly,-,UInt32,cia301
+H17_19,cia301-1017h-Producer Heartbeat Time,---,0,-,0,65535,-,ReadOnly,-,UInt16,cia301
+H17_20,cia301-1200h-1-COB_ID_Client_to_Server_Receive_SDO,---,1536,-,0,4294967295,-,ReadOnly,-,UInt32,cia301
+H17_21,cia301-1200h-2-COB_ID_Server_to_Client_Transmit_SDO,---,1408,-,0,4294967295,-,ReadOnly,-,UInt32,cia301
+H17_22,Select Look PDO Channel,,1,-,1,4,-,AnyModified,Immediate,UInt16,cia301
+H17_23,cia301-RPDO-X Channel COB ID,---,512,-,0,4294967295,-,ReadOnly,-,Int32,cia301
+H17_24,cia301-RPDO-X Channel Transmission_Type,---,1,-,0,4294967295,-,ReadOnly,-,UInt16,cia301
+H17_25,cia301-RPDO-X Channel NO.1Mapping Param,---,1614807056,-,0,4294967295,-,ReadOnly,-,UInt32,cia301
+H17_26,cia301-RPDO-X Channel NO.2Mapping Param,---,1616904200,-,0,4294967295,-,ReadOnly,-,UInt32,cia301
+H17_27,cia301-RPDO-X Channel NO.3Mapping Param,---,1618608160,-,0,4294967295,-,ReadOnly,-,UInt32,cia301
+H17_28,cia301-RPDO-X Channel NO.4Mapping Param,---,0,-,0,4294967295,-,ReadOnly,-,UInt32,cia301
+H17_29,cia301-RPDO-X Channel NO.5Mapping Param,---,0,-,0,4294967295,-,ReadOnly,-,UInt32,cia301
+H17_30,cia301-RPDO-X Channel NO.6Mapping Param,---,0,-,0,4294967295,-,ReadOnly,-,UInt32,cia301
+H17_31,cia301-RPDO-X Channel NO.7Mapping Param,---,0,-,0,4294967295,-,ReadOnly,-,UInt32,cia301
+H17_32,cia301-RPDO-X Channel NO.8Mapping Param,---,0,-,0,4294967295,-,ReadOnly,-,UInt32,cia301
+H17_33,cia301-TPDO-X Channel COB ID,---,384,-,0,4294967295,-,ReadOnly,-,Int32,cia301
+H17_34,cia301-TPDO-X Channel Transmission_Type,---,1,-,0,4294967295,-,ReadOnly,-,UInt16,cia301
+H17_35,cia301-TPDO-X Channel NO.1Mapping Param,---,1614872592,-,0,4294967295,-,ReadOnly,-,UInt32,cia301
+H17_36,cia301-TPDO-X Channel NO.2Mapping Param,---,1616969736,-,0,4294967295,-,ReadOnly,-,UInt32,cia301
+H17_37,cia301-TPDO-X Channel NO.3Mapping Param,---,1617166368,-,0,4294967295,-,ReadOnly,-,UInt32,cia301
+H17_38,cia301-TPDO-X Channel NO.4Mapping Param,---,0,-,0,4294967295,-,ReadOnly,-,UInt32,cia301
+H17_39,cia301-TPDO-X Channel NO.5Mapping Param,---,0,-,0,4294967295,-,ReadOnly,-,UInt32,cia301
+H17_40,cia301-TPDO-X Channel NO.6Mapping Param,---,0,-,0,4294967295,-,ReadOnly,-,UInt32,cia301
+H17_41,cia301-TPDO-X Channel NO.7Mapping Param,---,0,-,0,4294967295,-,ReadOnly,-,UInt32,cia301
+H17_42,cia301-TPDO-X Channel NO.8Mapping Param,---,0,-,0,4294967295,-,ReadOnly,-,UInt32,cia301
+H17_43,cia402-6040h-Controlword	,---,0,0,0,65535,-,ReadOnly,-,UInt16,cia402
+H17_44,cia402-6041h-Statusword	,---,0,0,0,65535,-,ReadOnly,-,UInt16,cia402
+H17_45,cia402-605Ah-Quick_stop_option_code,---,0,0,-32767,32767,-,ReadOnly,-,Int16,cia402
+H17_46,cia402-6060h-Modes_of_operation,---,8,8,-127,127,-,ReadOnly,-,Int16,cia402
+H17_47,cia402-6061h-Modes_of_operation_display,---,0,0,-127,127,-,ReadOnly,-,Int16,cia402
+H17_48,cia402-6064h-Position_actual_value,---,0,0,-2147483647,2147483647,cmd_pulse,ReadOnly,-,Int32,cia402
+H17_49,cia402-606Ch-Velocity_actual_value,---,0,0,-2147483647,2147483647,cmd_pulse/s,ReadOnly,-,Int32,cia402
+H17_50,cia402-6071h-Target_torque,---,0,0,-32767,32767,0.1%,ReadOnly,-,Int16,cia402
+H17_51,cia402-6077h-Torque_actual_value,---,0,0,-32767,32767,0.1%,ReadOnly,-,Int16,cia402
+H17_52,cia402-607Ah-Target_position,---,0,0,-2147483647,2147483647,cmd_pulse,ReadOnly,-,Int32,cia402
+H17_53,cia402-607Ch-Home_offset,---,0,0,-2147483647,2147483647,cmd_pulse,ReadOnly,-,Int32,cia402
+H17_54,cia402-607Eh-Polarity,---,0,0,0,256,-,ReadOnly,-,UInt16,cia402
+H17_55,cia402-607Fh-Maximal_profile_velocityㄗpt modeㄘ,---,20000,0,0,2147483647,cmd_pulse/s,ReadOnly,-,Int32,cia402
+H17_56,cia402-6081h-Profile_velocityㄗpp modeㄘ,---,0,0,0,2147483647,cmd_pulse/s,ReadOnly,-,Int32,cia402
+H17_57,cia402-6083h-Profile_acceleration,---,10000,10000,0,2147483647,cmd_pulse/s^2,ReadOnly,-,Int32,cia402
+H17_58,cia402-6084h-Profile_deceleration,---,10000,10000,0,2147483647,cmd_pulse/s^2,ReadOnly,-,Int32,cia402
+H17_59,cia402-6085h-Quick_stop_deceleration,---,50000,50000,0,2147483647,cmd_pulse/s^2,ReadOnly,-,Int32,cia402
+H17_60,cia402-6098h-Homing_method,---,35,35,-127,127,-,ReadOnly,-,UInt16,cia402
+H17_61,cia402-6099-1h-Homing_speeds_Speed_for_switch_search,---,10000,10000,0,2147483647,cmd_pulse/s,ReadOnly,-,UInt32,cia402
+H17_62,cia402-6099-2h-Homing_speeds_Speed_for_zero_search,---,1000,1000,0,2147483647,cmd_pulse/s,ReadOnly,-,UInt32,cia402
+H17_63,cia402-609Ah-Homing_acceleration,---,10000,10000,0,2147483647,cmd_pulse/s^2,ReadOnly,-,UInt32,cia402
+H17_64,cia402-60FFh-Target_velocity,---,0,0,-2147483647,2147483647,cmd_pulse/s,ReadOnly,-,Int32,cia402
+H30_00,CPU load rate,---,640,0,0,65535,0.1%,ReadOnly,-,UInt16,ALL
+H30_01,FunOut read through communication,---,15,0,0,65535,-,ReadOnly,-,UInt16,ALL
+H30_02,FunOut read through communication,---,0,0,0,65535,-,ReadOnly,-,UInt16,ALL
+H32_01,Internal servo enable control,---,0,0,0,1,-,ReadOnly,Immediate,UInt16,ALL
+H32_02,Servo state,---,5,0,0,6,-,ReadOnly,-,UInt16,ALL
