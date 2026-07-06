@@ -31,4 +31,16 @@ int motor_move(Motor *m, int speed_pct, int pos);
 // 목표 도착까지 대기. 도착 1, 타임아웃 0
 int motor_wait(Motor *mx, int xtarget, Motor *my, int ytarget, int timeout);
 
+// ===== 재시작 위치 선택 (H11_02, 0: 멈춘 곳부터, 1: 처음부터) =====
+int motor_begin(Motor *m, int v);
+
+// ===== DI5 로직 값 쓰기 (PF7 누르면 1, 떼면 0 - button.c가 호출) =====
+int motor_di5(Motor *m, int v);
+
+// ===== 이동 중 정지 (트리거 해제, 멈춘 자리에서 정지) =====
+int motor_stop(Motor *m);
+
+// ===== 모터 원점으로 돌아가기 위한 장치  =====
+int motor_home(Motor *m, int target);
+
 #endif

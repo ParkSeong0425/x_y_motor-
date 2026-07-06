@@ -69,8 +69,12 @@ void Error_Handler(void);
 #define STOP_btn_EXTI_IRQn EXTI9_5_IRQn
 #define STOP_Pin GPIO_PIN_10
 #define STOP_GPIO_Port GPIOF
+#define LAMP_GREEN_Pin GPIO_PIN_0
+#define LAMP_GREEN_GPIO_Port GPIOC
 #define W610_CS_Pin GPIO_PIN_0
 #define W610_CS_GPIO_Port GPIOA
+#define LAMP_RED_Pin GPIO_PIN_3
+#define LAMP_RED_GPIO_Port GPIOA
 #define FRAM_CS_Pin GPIO_PIN_4
 #define FRAM_CS_GPIO_Port GPIOA
 #define MOTOR_START_btn_Pin GPIO_PIN_1

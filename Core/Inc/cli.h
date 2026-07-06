@@ -5,4 +5,7 @@
 // 형식: x <속도%> <위치>   예) x 10 5000
 void cli_run(void);
 
+// ★ 경고(Warning)를 해결하기 위해 추가해야 하는 함수 선언
+int cli_go(int col, int dan, int rpm);
+
 #endif
