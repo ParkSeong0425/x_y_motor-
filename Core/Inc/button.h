@@ -1,19 +1,18 @@
-/*
- * button.h
- *
- *  Created on: Jul 2, 2026
- *      Author: HWNOT
- */
 #ifndef BUTTON_H
 #define BUTTON_H
 
 #include "main.h"
 
-extern volatile int run;     // 자동 왕복 동작 중
-extern volatile int pause;   // 일시 정지
-extern volatile int estop;   // 비상 정지
+extern volatile int run;
+extern volatile int pause;
+extern volatile int estop;
 
 void button_init(void);
 void button_run(void);
+
+int button_home_x(int *out);
+int button_home_y(int *out);
+int button_save_x(int n);
+int button_save_y(int n);
 
 #endif

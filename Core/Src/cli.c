@@ -7,35 +7,52 @@
 
 extern UART_HandleTypeDef huart3;
 
-#define MOVE_TIMEOUT 10000
-#define VER 4   // 저장 단위 변경: 회전수 -> pulse 위치
+#define MOVE_TIMEOUT 60000   // 10초는 홈 이동(먼 거리) 중에 무조건 걸림
 
-#define REV_MM  160     // 풀리 원주 (mm)
-#define REV_CNT 131072  // 모터 1바퀴당 pulse 수
-#define PULSE(v) ((v) * REV_CNT)            // 회전수 -> pulse
-#define MM(v)    ((v) * REV_MM / REV_CNT)   // pulse -> mm 표시
+#define DATA_VER 0x0001   // 고정값, 데이터 구조 바뀔 때만 손으로 올림
 
-#define X_MAX (60 * REV_CNT)     // X 최대: 60바퀴
-#define Y_MAX (-(64 * REV_CNT))  // Y 최대: -64바퀴
+#define REV_MM  160
+#define REV_CNT 131072
+#define PULSE(v) ((v) * REV_CNT)
+#define MM(v)    ((v) * REV_MM / REV_CNT)
 
-// FRAM 주소 0번지에 저장되는 데이터
+#define X_MAX (60 * REV_CNT)
+#define Y_MAX (-(64 * REV_CNT))
+
 typedef struct {
-	int ver;     // FRAM 버전 표식
-	int x[4];    // X축 열 위치 pulse
-	int y[4];    // Y축 단 위치 pulse, 양수로 저장하고 이동 때 음수로 사용
+	int ver;
+	int x[4];
+	int y[4];   // raw pulse 그대로 저장 (부호 반전 없음)
+	int home_x;
+	int home_y;
+	int last_x;   // 마지막 위치 (전원 꺼도 기억)
+	int last_y;
 } Data;
 
 static Data data;
 static int loaded = 0;
-static int homed_x = 0;   // xhome 하기 전엔 이동 금지
-static int homed_y = 0;   // yhome 하기 전엔 이동 금지
+
+// 현재 위치를 FRAM에 저장 -> 전원 꺼도 위치 안 잃어버림
+static void save_last(void) {
+	motor_pos(&motorX, &data.last_x);
+	motor_pos(&motorY, &data.last_y);
+	fram_write(0, &data, sizeof(data));
+}
+
+int cli_homed(void) {
+	return data.home_x != 0 || data.home_y != 0;
+}
+
+int cli_getc(uint8_t *c) {
+	return HAL_UART_Receive(&huart3, c, 1, 100) == HAL_OK;
+}
 
 static void read_line(char *buf, int max) {
 	int i = 0;
 	while (i < max - 1) {
 		uint8_t c;
-		if (HAL_UART_Receive(&huart3, &c, 1, 50) != HAL_OK) {
-			button_run();    // 입력 기다리는 동안 버튼 자동 왕복 동작
+		if (!cli_getc(&c)) {
+			button_run();
 			continue;
 		}
 		if (c == '\r' || c == '\n') {
@@ -43,7 +60,7 @@ static void read_line(char *buf, int max) {
 				break;
 			continue;
 		}
-		if (c == 0x08 || c == 0x7F) {        // 백스페이스: 한 글자 지움
+		if (c == 0x08 || c == 0x7F) {
 			if (i > 0) {
 				i--;
 				print("\b \b");
@@ -67,7 +84,7 @@ static void print_menu(void) {
 	print("\r\nInput\r\n");
 	print("x4 save -> x3 save -> x2 save -> x1 save\r\n");
 	print("y1 save -> y2 save -> y3 save -> y4 save\r\n");
-	print("go x(열) y(단) rpm\r\n");
+	print("go x(열) y(단)\r\n");
 	print("show\r\n");
 	print("reset\r\n");
 	print("stop\r\n");
@@ -75,134 +92,68 @@ static void print_menu(void) {
 	print(": ");
 }
 
+void cli_set_x(int n, int pos) {
+	data.x[n - 1] = pos;   // raw pulse
+	save_last();
+}
+
+void cli_set_y(int n, int pos) {
+	data.y[n - 1] = pos;   // raw pulse
+	save_last();
+}
+
 // X, Y 모터에 이동 명령을 같이 보내고 같이 도착을 기다림
-static int move_xy(int rpm, int xt, int yt) {
-	motor_move(&motorX, rpm, xt);
-	motor_move(&motorY, rpm, yt);
-	return motor_wait(&motorX, xt, &motorY, yt, MOVE_TIMEOUT);
+// 트리거 자체가 실패하면 기다릴 필요 없이 바로 취소
+static int move_xy(int xrpm, int yrpm, int xt, int yt) {
+	int okx = motor_move(&motorX, xrpm, xt);
+	int oky = motor_move(&motorY, yrpm, yt);
+
+	if (!okx)
+		print("X cmd fail\r\n");
+	if (!oky)
+		print("Y cmd fail\r\n");
+	if (!okx || !oky)
+		return 0;
+
+	int ok = motor_wait(&motorX, xt, &motorY, yt, MOVE_TIMEOUT);
+	save_last();
+	return ok;
 }
 
-// X축 천천히 이동, s 누른 위치를 xn에 저장
-static int save_x(int n) {
-	int now = 0;
-	int lim = data.x[0] > 0 ? data.x[0] : X_MAX;
-
+int cli_go_home(void) {
 	pause = 0;
-	print("X save... press s\r\n");
-	motor_move(&motorX, 100, lim);
-
-	while (1) {
-		if (estop) {
-			motor_stop(&motorX);
-			return 0;
-		}
-
-		uint8_t c;
-		if (HAL_UART_Receive(&huart3, &c, 1, 100) == HAL_OK) {
-			if (c == 's' || c == 'S')
-				break;
-		}
-	}
-
-	motor_stop(&motorX);
-	HAL_Delay(100);
-
-	if (!motor_pos(&motorX, &now))
-		return 0;
-
-	if (now < 0 || now > X_MAX) {
-		print("Over range\r\n");
-		return 0;
-	}
-
-	data.x[n - 1] = now;
-	fram_write(0, &data, sizeof(data));
-	print("save\r\n");
-	show();
-	return 1;
+	return move_xy(100, 100, data.home_x, data.home_y);
 }
 
-// Y축 천천히 이동, s 누른 위치를 yn에 저장
-static int save_y(int n) {
-	int now = 0;
-	int lim = data.y[3] > 0 ? -data.y[3] : Y_MAX;
-
-	pause = 0;
-	print("Y save... press s\r\n");
-	motor_move(&motorY, 100, lim);
-
-	while (1) {
-		if (estop) {
-			motor_stop(&motorY);
-			return 0;
-		}
-
-		uint8_t c;
-		if (HAL_UART_Receive(&huart3, &c, 1, 100) == HAL_OK) {
-			if (c == 's' || c == 'S')
-				break;
-		}
-	}
-
-	motor_stop(&motorY);
-	HAL_Delay(100);
-
-	if (!motor_pos(&motorY, &now))
-		return 0;
-
-	if (now > 0 || now < Y_MAX) {
-		print("Over range\r\n");
-		return 0;
-	}
-
-	data.y[n - 1] = -now;
-	fram_write(0, &data, sizeof(data));
-	print("save\r\n");
-	show();
-	return 1;
-}
-
-// 열/단 번호로 이동
-int cli_go(int col, int dan, int rpm) {
+int cli_go(int col, int dan, int xrpm, int yrpm) {
 	int xt = data.x[col - 1];
-	int yd = data.y[dan - 1];
-	int yt = -yd;   // Y는 역방향이라 음수로 이동
+	int yt = data.y[dan - 1];
 
-	if (xt == 0 || yd == 0) {
+	if (xt == 0 || yt == 0) {
 		print("Need save\r\n");
 		return 0;
 	}
-
-	if (xt < 0 || xt > X_MAX || yt > 0 || yt < Y_MAX) {
-		print("Over range\r\n");
-		return 0;
-	}
-
-	if (data.x[0] > 0 && xt > data.x[0]) {
-		print("Over range\r\n");
-		return 0;
-	}
-
-	if (data.y[3] > 0 && yd > data.y[3]) {
-		print("Over range\r\n");
-		return 0;
-	}
-
-	return move_xy(rpm, xt, yt);
+	return move_xy(xrpm, yrpm, xt, yt);
 }
 
 void cli_run(void) {
 	char line[48];
-	int a, b, c, d;
+	int a, b;
 
-	if (!loaded) {                       // 첫 실행 때 FRAM 데이터 로드 + 버튼 핀 초기화
+	if (!loaded) {
 		button_init();
+		HAL_Delay(1000);
+		motor_init(&motorX, 0);
+		HAL_Delay(200);
+		motor_init(&motorY, 1);
 		fram_read(0, &data, sizeof(data));
-		if (data.ver != VER) {            // 새 코드 다운로드 후 첫 부팅: FRAM 초기화
+		if (data.ver != DATA_VER) {
 			memset(&data, 0, sizeof(data));
-			data.ver = VER;
+			data.ver = DATA_VER;
 			fram_write(0, &data, sizeof(data));
 		}
+		motor_sync(&motorX, data.last_x);   // 전원 꺼지기 전 좌표계로 복원
+		motor_sync(&motorY, data.last_y);
 		loaded = 1;
 		print("\r\n");
 		show();
@@ -215,54 +166,20 @@ void cli_run(void) {
 
 	if ((sscanf(line, "x%d save", &a) == 1 || sscanf(line, "x%dsave", &a) == 1)
 			&& a >= 1 && a <= 4) {
-		if (!homed_x) {
-			print("Need xhome first\r\n");
-			return;
-		}
-		save_x(a);
+		button_save_x(a);
+		show();
 		return;
 	}
 
 	if ((sscanf(line, "y%d save", &a) == 1 || sscanf(line, "y%dsave", &a) == 1)
 			&& a >= 1 && a <= 4) {
-		if (!homed_y) {
-			print("Need yhome first\r\n");
-			return;
-		}
-		save_y(a);
+		button_save_y(a);
+		show();
 		return;
 	}
 
-	if (sscanf(line, "go %d %d %d", &a, &b, &c) == 3) {
-		if (!homed_x || !homed_y) {
-			print("Need xhome, yhome first\r\n");
-			return;
-		}
-		if (a < 1 || a > 4 || b < 1 || b > 4) {
-			print("Range 1-4\r\n");
-			return;
-		}
-		cli_go(a, b, c);
-		return;
-	}
-
-	if (sscanf(line, "x %d %d %d %d", &a, &b, &c, &d) == 4) {
-		data.x[0] = PULSE(a);
-		data.x[1] = PULSE(b);
-		data.x[2] = PULSE(c);
-		data.x[3] = PULSE(d);
-		fram_write(0, &data, sizeof(data));
-		print("save\r\n");
-		return;
-	}
-
-	if (sscanf(line, "y %d %d %d %d", &a, &b, &c, &d) == 4) {
-		data.y[0] = PULSE(a);
-		data.y[1] = PULSE(b);
-		data.y[2] = PULSE(c);
-		data.y[3] = PULSE(d);
-		fram_write(0, &data, sizeof(data));
-		print("save\r\n");
+	if (sscanf(line, "go %d %d", &a, &b) == 2) {
+		cli_go(a, b, 750, 1000);
 		return;
 	}
 
@@ -273,10 +190,8 @@ void cli_run(void) {
 
 	if (strcmp(line, "reset") == 0) {
 		memset(&data, 0, sizeof(data));
-		data.ver = VER;
-		fram_write(0, &data, sizeof(data));
-		homed_x = 0;
-		homed_y = 0;
+		data.ver = DATA_VER;
+		save_last();
 		show();
 		return;
 	}
@@ -290,24 +205,25 @@ void cli_run(void) {
 	}
 
 	if (strcmp(line, "xhome") == 0) {
-		print("X homing...\r\n");
-		homed_x = motor_home(&motorX, -X_MAX);
+		int p = 0;
+		if (button_home_x(&p)) {
+			data.home_x = p;
+			save_last();
+		}
 		return;
 	}
 
 	if (strcmp(line, "yhome") == 0) {
-		print("Y homing...\r\n");
-		homed_y = motor_home(&motorY, -Y_MAX);
+		int p = 0;
+		if (button_home_y(&p)) {
+			data.home_y = p;
+			save_last();
+		}
 		return;
 	}
 
 	if (strcmp(line, "home") == 0) {
-		if (!homed_x || !homed_y) {
-			print("Need xhome, yhome first\r\n");
-			return;
-		}
-		print("Homing...\r\n");
-		move_xy(100, 0, 0);
+		cli_go_home();
 		return;
 	}
 

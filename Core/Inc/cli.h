@@ -1,11 +1,14 @@
 #ifndef CLI_H
 #define CLI_H
 
-// PC 입력 한 줄을 받아 명령 실행
-// 형식: x <속도%> <위치>   예) x 10 5000
-void cli_run(void);
+#include "main.h"
 
-// ★ 경고(Warning)를 해결하기 위해 추가해야 하는 함수 선언
-int cli_go(int col, int dan, int rpm);
+void cli_run(void);
+int cli_go(int col, int dan, int xrpm, int yrpm);
+int cli_go_home(void);
+void cli_set_x(int n, int pos);
+void cli_set_y(int n, int pos);
+int cli_getc(uint8_t *c);
+int cli_homed(void);
 
 #endif
