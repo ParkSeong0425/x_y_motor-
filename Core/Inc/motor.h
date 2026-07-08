@@ -13,12 +13,17 @@ typedef struct {
 extern Motor motorX;
 extern Motor motorY;
 
-// DI 기능 레지스터 (button.c에서 xhome/yhome/save에 사용)
-#define R_DI1  0x0302
-#define R_DI1L 0x0303
-#define R_DI3  0x0306
-#define R_DI3L 0x0307
-#define JOG_SPEED 0x0604   // H06_04
+// DI 기능 레지스터
+#define R_DI1   0x0302
+#define R_DI1L  0x0303
+#define R_DI3   0x0306
+#define R_DI3L  0x0307
+
+// DI9 = H03_18 / H03_19
+#define R_DI9   0x0312
+#define R_DI9L  0x0313
+
+#define JOG_SPEED 0x0604
 #define JOG_RPM 100
 
 void print(const char *s);
@@ -33,5 +38,8 @@ int motor_begin(Motor *m, int v);
 int motor_di5(Motor *m, int v);
 int motor_stop(Motor *m);
 int motor_write(Motor *m, uint16_t reg, uint16_t val);
+
+// mode: 0 = 정방향 홈서치, 1 = 역방향 홈서치
+int motor_home(Motor *m, int mode);
 
 #endif

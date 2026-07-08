@@ -10,5 +10,6 @@ void cli_set_x(int n, int pos);
 void cli_set_y(int n, int pos);
 int cli_getc(uint8_t *c);
 int cli_homed(void);
+void cli_check_power(void);
 
 #endif
